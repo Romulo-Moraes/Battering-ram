@@ -34,6 +34,17 @@ int main() {
 }
 ```
 Pay attention that the main method need a integer variable that need be incremented in each iteration, it's to know the time of some operations in the buffer.
+
+### The Chars Cases
+Some times you need each only lower case words, other times only upper case, then to save process time you can choose when use each of them, or in the last option, both of them. here is the options:
+
+```c
+#define LOWER_CASE_ONLY 1
+#define UPPER_CASE_ONLY 2
+#define LOWER_AND_UPPER_CASE 3
+```
+
+
 ## Warning!
 Sometimes a while True can be dangerous because a char buffer has fixed length and a overflow can happens. Just use math to reach some target.
 
