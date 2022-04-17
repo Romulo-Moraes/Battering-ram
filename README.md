@@ -16,7 +16,7 @@ Example:
 #include <string.h>
 
 int main() {
-  char buffer[256] = "a";
+  char buffer[5] = "a";
   char final_buffer[] = "FOOO";
   int i = 0;
 
@@ -33,6 +33,7 @@ int main() {
   return 0;
 }
 ```
+Pay attention that the main method need a integer variable that need be incremented in each iteration, it's to know the time of some operations in the buffer.
 ## Warning!
 Sometimes a while True can be dangerous because a char buffer has fixed length and a overflow can happens. Just use math to reach some target.
 
