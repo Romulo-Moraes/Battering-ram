@@ -1,9 +1,10 @@
 #include "./../battering_ram.h"
+#include <pthread.h>
 #include <string.h>
 
 int main() {
-  char buffer[5] = "a";
-  char final_buffer[] = "FOOO";
+  char buffer[7] = "a";
+  char final_buffer[] = "FOOBAR";
   int i = 0;
 
   while (1) {
