@@ -48,10 +48,6 @@ void insert_char(char *buffer, int battering_ram_mode) {
   char *new_buffer = (char *)malloc(sizeof(char) * buffer_size + 1);
   bzero(new_buffer, buffer_size + 1);
 
-  if (new_buffer == NULL) {
-    printf("holy crap\n");
-    exit(0);
-  }
   // Resolve the necessary char looking for choosed mode, and put the value in
   // begin of dynamic buffer
   if (battering_ram_mode == UPPER_CASE_ONLY) {
@@ -62,7 +58,6 @@ void insert_char(char *buffer, int battering_ram_mode) {
 
   // concat with original buffer
   strcat(new_buffer, buffer);
-  printf("%s\n", new_buffer);
 
   // Zero original buffer
   bzero(buffer, buffer_size);
