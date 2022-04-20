@@ -39,8 +39,30 @@ The get_data is the complement of get_next_sequence function, the data is stored
 ```c
 void get_data(struct battering_ram_data *data, char *output);
 ```
+<br/>
+
+  ### The main struct
+  The main data holder of this lib is a simple struct of vanilla C language, this looks like this:
+  ```c
+  
+struct battering_ram_data {
+    char *possible_chars;
+    char buffer[BUFFER_SIZE];
+    char end_value[BUFFER_SIZE];
+    bool upper_chars_enabled;
+    bool lower_chars_enabled;
+    bool numbers_enabled;
+    bool symbols_enabled;
+    bool initial_value_triggered;
+    bool end_value_triggered;
+};
+  ```
+  
 
 The library file has more methods, but it's only for internal pourposes and shouldn't be used
+
+## Simple Battering-Ram structure
+
 
 Example:
 ```c
