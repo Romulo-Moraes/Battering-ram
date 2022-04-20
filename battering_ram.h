@@ -1,3 +1,4 @@
+#include <ctype.h>
 #include <malloc.h>
 #include <math.h>
 #include <stdbool.h>
@@ -37,11 +38,13 @@
 struct battering_ram_data {
   char *possible_chars;
   char buffer[BUFFER_SIZE];
+  char end_value[BUFFER_SIZE];
   bool upper_chars_enabled;
   bool lower_chars_enabled;
   bool numbers_enabled;
   bool symbols_enabled;
-  int round;
+  bool initial_value_triggered;
+  bool end_value_triggered;
 };
 
 void prepare_battering_ram(struct battering_ram_data *data,
@@ -51,11 +54,13 @@ void prepare_battering_ram(struct battering_ram_data *data,
   int dynamic_buffer_index = 0;
 
   bzero(data->buffer, BUFFER_SIZE);
+  bzero(data->end_value, BUFFER_SIZE);
   data->numbers_enabled = enable_numbers;
   data->lower_chars_enabled = enable_lowercase;
   data->upper_chars_enabled = enable_uppercase;
   data->symbols_enabled = enable_symbols;
-  data->round = 0;
+  data->initial_value_triggered = false;
+  data->end_value_triggered = false;
 
   if (enable_numbers)
     max_size += 10;
@@ -179,10 +184,15 @@ bool is_the_max_possible_matchs(struct battering_ram_data *data) {
   return is_the_end;
 }
 
-void get_next_sequence(struct battering_ram_data *data) {
+bool get_next_sequence(struct battering_ram_data *data) {
   if (data->possible_chars != NULL) {
-    if (is_the_max_possible_matchs(data)) {
 
+    if (data->end_value_triggered &&
+        strcmp(data->buffer, data->end_value) == 0) {
+      return false;
+    }
+
+    if (is_the_max_possible_matchs(data)) {
       reset_all_bytes(data);
 
       insert_char(data);
@@ -211,4 +221,59 @@ void get_next_sequence(struct battering_ram_data *data) {
     printf("Battering ram data segment is NULL\n");
     exit(1);
   }
+
+  return true;
+}
+
+void check_allowed_chars(struct battering_ram_data *data, char *buffer) {
+  if (data->possible_chars != NULL) {
+
+    size_t buffer_size = strlen(buffer);
+    char error_buffer[15] = "";
+
+    for (int i = 0; i < buffer_size; i++) {
+
+      if (isdigit(buffer[i])) {
+        if (!data->numbers_enabled) {
+          strcpy(error_buffer, "numbers");
+        }
+      }
+
+      if (islower((buffer[i]))) {
+        if (!data->lower_chars_enabled) {
+          strcpy(error_buffer, "lower chars");
+        }
+      }
+
+      if (isupper((buffer[i]))) {
+        if (!data->upper_chars_enabled) {
+          strcpy(error_buffer, "upper chars");
+        }
+      }
+    }
+
+    if (strcmp(error_buffer, "") != 0) {
+      printf("Char array has not allowed chars! (%s)", error_buffer);
+      exit(1);
+    }
+
+  } else {
+    printf("Battering ram data segment is NULL\n");
+    exit(1);
+  }
+}
+
+void set_start_value(struct battering_ram_data *data, char *initial_value) {
+
+  check_allowed_chars(data, initial_value);
+
+  data->initial_value_triggered = true;
+  strncpy(data->buffer, initial_value, strlen(initial_value));
+}
+
+void set_end_value(struct battering_ram_data *data, char *end_value) {
+  check_allowed_chars(data, end_value);
+
+  data->end_value_triggered = true;
+  strncpy(data->end_value, end_value, strlen(end_value));
 }
