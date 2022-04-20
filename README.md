@@ -5,104 +5,116 @@
 </div>
 
 ## What's that ?
-This program is an single file header-only module for C language whose will get the next sequence of a string with the target of Bruteforce. Created with inspiration in the binary base, on yours carrys. This module can find value with "Only lower case", "Only upper case" and "Lower and upper case".
+This program is an single file header-only module for C language whose will get the next sequence of a string with the target of Bruteforce. Created with inspiration in the binary base, on yours carrys. This module can find values with Lower case, Upper case, Numbers and Symbols.
 
 ## How to use it?
-The use of it is really simple, the main structure need be inside of a loop which each iteration the next value will be returned on your buffer with the pourpose of test in some bruteforce situation.
+The lib has some main functions that gives all the functionality of the bruteforce idea, is the following methods:
+```c
+// Prepare the tool to start with some chars types enabled of disabled
+void prepare_battering_ram(struct battering_ram_data *data,bool enable_uppercase, bool enable_lowercase,bool enable_symbols, bool enable_numbers);
+
+// Set an initial value which will start the algorithm
+void set_start_value(struct battering_ram_data *data, char *initial_value);
+
+// Set the max value that the tool can reach
+void set_end_value(struct battering_ram_data *data, char *end_value);
+
+// Get the next sequence of the current string
+void get_next_sequence(struct battering_ram_data *data);
+
+// Get the data after get_next_sequence from lib struct
+void get_data(struct battering_ram_data *data, char *output);
+```
+The library file has more methods, but it's only for internal pourposes and shouldn't be used
 
 Example:
 ```c
 #include "./../battering_ram.h"
-#include <string.h>
+#include <stdbool.h>
 
 int main() {
-  char buffer[5] = "a";
-  char final_buffer[] = "FOOO";
-  int i = 0;
+  char buffer[256] = {0};
 
-  while (1) {
-    if (strcmp(buffer, final_buffer) == 0) {
-      printf("Found: %s", buffer);
-      exit(0);
-    }
-    i = get_next_sequence(i, buffer, UPPER_CASE_ONLY);
-    printf("%s\n", buffer);
-    i += 1;
-  }
+  struct battering_ram_data data;
+  prepare_battering_ram(&data, false, 1, false, false);
 
+  // The struct already start with an initial value and can be catched by get_data
+  get_data(&data, buffer);
+
+  printf("%s\n", buffer);
+
+  get_next_sequence(&data);
+
+  get_data(&data, buffer);
+
+  printf("%s", buffer);
   return 0;
 }
 ```
-Pay attention that the main method need a integer variable that need be incremented in each iteration, it's to know the time of some operations in the buffer.
-
-### The Chars Cases
-Some times you need each only lower case words, other times only upper case, then to save process time you can choose when use each of them, or in the last option, both of them. here is the options:
-
-```c
-#define LOWER_CASE_ONLY 1
-#define UPPER_CASE_ONLY 2
-#define LOWER_AND_UPPER_CASE 3
+The output of the program above is:
+```txt
+a
+b
 ```
 
 ## Splitting the work
-Is pretty possible use more than a thread to do the work, using strategy to reach more quick in the final target.
-
-Example: start a thread from 'a' and start another thread from 'aaaaa', who reach the value first win.
+Is also possible split the work between threads with the objective of find the final result most quickly
 
 Code example of multithreading:
 ```c
 #include "./../battering_ram.h"
+#include <bits/pthreadtypes.h>
 #include <pthread.h>
 #include <stdbool.h>
-#include <stdio.h>
-#include <string.h>
-#include <unistd.h>
 
-static bool can_stop = false;
-static char target1[] = "romu";
-static char target2[] = "umor";
+static char target[] = "note";
+bool value_not_found = true;
 
-// Thread to reach "romu"
-void *another_thread() {
-  char buffer[5] = "a";
-  int i = 0;
-  while (true) {
-    if (strcmp(buffer, target1) == 0) {
-      printf("value 1: %s\n", buffer);
-      can_stop = true;
-      break;
+void *another_worker() {
+  char output[128] = {0};
+
+  struct battering_ram_data data;
+  prepare_battering_ram(&data, false, true, false, false);
+
+  set_start_value(&data, "aazz");
+
+  while (value_not_found) {
+    get_next_sequence(&data);
+
+    get_data(&data, output);
+    if (strcmp(output, target) == 0) {
+      value_not_found = false;
+      printf("Found: %s! thread 2\n", output);
+      exit(0);
     }
-    i = get_next_sequence(i, buffer, LOWER_CASE_ONLY);
-    i += 1;
+    printf("%s\n", output);
   }
-  pthread_exit(0);
 }
 
 int main() {
-  // Start a new thread to reach the first target
-  pthread_t thread1;
-  pthread_create(&thread1, NULL, another_thread, NULL);
-  pthread_detach(thread1);
 
-  // Code segment to reach the second target
-  char buffer[5] = "a";
-  int i = 0;
-  while (true) {
-    if (strcmp(buffer, target2) == 0) {
-      printf("value 2: %s\n", buffer);
-      break;
+  pthread_t thread;
+  pthread_create(&thread, NULL, another_worker, NULL);
+  pthread_detach(thread);
+
+  char output[128] = {0};
+
+  struct battering_ram_data data;
+  prepare_battering_ram(&data, false, true, false, false);
+
+  set_start_value(&data, "a");
+
+  while (value_not_found) {
+    get_next_sequence(&data);
+
+    get_data(&data, output);
+    if (strcmp(output, target) == 0) {
+      value_not_found = false;
+      printf("Found: %s! thread 1\n", output);
+      exit(0);
     }
-    i = get_next_sequence(i, buffer, LOWER_CASE_ONLY);
-    i += 1;
+    printf("%s\n", output);
   }
-
-  // Wait or do something...
-  while (!can_stop) {
-    sleep(2);
-  }
-
-  // End
-  printf("Both value found!\n");
 
   return 0;
 }
