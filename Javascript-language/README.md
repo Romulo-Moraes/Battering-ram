@@ -1,6 +1,6 @@
 <div align="center">
   <h1>This is the Javascript version of the Battering-Ram</h1>
-  <img width="200px" src="./../assets/Javascript logo.png"/>
+  <img width="500px" src="./../assets/Javascript image.png"/>
 </div>
 
 ## How to use it?
