@@ -109,7 +109,7 @@ class battering_ram:
 
             current_char = self.__possible_chars[next_char_position]
             
-            return [False,current_char]
+            return [False,current_char];
     
     def __is_the_max_possible_matches(self):
         buffer_size = len(self.__buffer)
@@ -150,7 +150,7 @@ class battering_ram:
 
             if(carry_status_tuple[0]):
                 i =  buffer_size - 2
-                while(buffer_size >= 0):
+                while(i >= 0):
                     
             
                     empty_string = ""
