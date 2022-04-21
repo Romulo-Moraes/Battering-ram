@@ -1,4 +1,6 @@
 
+<div align="center"><h1>This is the C version of the Battering-Ram</h1></div>
+
 ## How to use it?
 The lib has some main functions that gives all the functionality of the bruteforce idea.
   ### Explaning the main functions
