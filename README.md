@@ -14,7 +14,6 @@ You can choose the language between C and Python in the file tree above, inside 
 Some ideas of future support is coming, like:
 <ol>
   <li> Windows support for C module version</li>
-  <li> Support for the Javascript language</li>
   <li> Support for symbols ( not working yet )
 </ol>
 
