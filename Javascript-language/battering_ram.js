@@ -178,7 +178,7 @@ class battering_ram {
 
           data[i] = carry_status_tuple[1];
 
-          this.#buffer = array_to_string(data);
+          this.#buffer = this.#array_to_string(data);
 
           if (!carry_status_tuple[0]) {
             break;
@@ -186,6 +186,7 @@ class battering_ram {
         }
       }
     }
+    return true;
   }
   #check_allowed_chars(buffer) {
     let buffer_size = buffer.length;
@@ -233,3 +234,5 @@ class battering_ram {
     this.#end_value = end_value;
   }
 }
+
+module.exports = { battering_ram };

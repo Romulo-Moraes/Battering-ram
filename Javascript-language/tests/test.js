@@ -1,25 +1,16 @@
-function isdigit(char) {
-  if (isNaN(Number(char))) {
-    return false;
+const battering_ram = require("./../battering_ram").battering_ram;
+
+let my_object = new battering_ram(true, true, false, false);
+
+let current_data = "";
+
+do {
+  current_data = my_object.get_data();
+  if (current_data == "rOmU") {
+    console.log("Gotcha!");
+    break;
   }
-  return true;
-}
-
-function isupper(char) {
-  let ascii_representation = char.charCodeAt(0);
-
-  if (ascii_representation >= 65 && ascii_representation <= 90 || ascii_representation >= 192 && ascii_representation <= 222) {
-    return true;
+  else {
+    console.log(current_data);
   }
-
-  return false;
-}
-
-function islower(char) {
-  return char == char.toLowerCase()
-}
-
-console.log(islower('.'))
-
-
-// console.log(isdigit("3"));
+} while (my_object.get_next_sequence());
