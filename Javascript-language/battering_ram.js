@@ -47,7 +47,7 @@ class battering_ram {
       let i = NUMBERS_BEGIN;
 
 
-      for (let j = 0; j < NUMBERS_END - NUMBERS_BEGIN; j++) {
+      for (let j = 0; j <= NUMBERS_END - NUMBERS_BEGIN; j++) {
         this.#possible_chars += String.fromCharCode(i);
         i += 1;
       }
@@ -57,7 +57,7 @@ class battering_ram {
       let i = UPPER_CHARS_BEGIN;
 
 
-      for (let j = 0; j < UPPER_CHARS_END - UPPER_CHARS_BEGIN; j++) {
+      for (let j = 0; j <= UPPER_CHARS_END - UPPER_CHARS_BEGIN; j++) {
         this.#possible_chars += String.fromCharCode(i);
         i += 1;
       }
@@ -67,7 +67,7 @@ class battering_ram {
       let i = LOWER_CHARS_BEGIN;
 
 
-      for (let j = 0; j < LOWER_CHARS_END - LOWER_CHARS_BEGIN; j++) {
+      for (let j = 0; j <= LOWER_CHARS_END - LOWER_CHARS_BEGIN; j++) {
         this.#possible_chars += String.fromCharCode(i);
 
         i += 1;
