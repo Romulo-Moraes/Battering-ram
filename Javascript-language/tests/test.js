@@ -4,17 +4,15 @@ let my_object = new battering_ram(false, false, false, true);
 
 let current_data = "";
 
-let store_interval = setInterval(() => {
-
+do {
   current_data = my_object.get_data();
-  if (current_data == "rOmU") {
+  if (current_data == "4346") {
     console.log("Gotcha!");
-    clearInterval(store_interval);
+    break;
   }
   else {
     console.log(current_data);
   }
-  my_object.get_next_sequence();
+} while (my_object.get_next_sequence());
 
-}, 500);
 

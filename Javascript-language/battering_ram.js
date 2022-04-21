@@ -219,14 +219,14 @@ class battering_ram {
     }
   }
 
-  #set_start_value(initial_value) {
+  set_start_value(initial_value) {
     this.#check_allowed_chars(initial_value);
 
     this.#initial_value_triggered = true;
     this.#buffer = initial_value;
   }
 
-  #set_end_value(end_value) {
+  set_end_value(end_value) {
     this.#check_allowed_chars(end_value);
 
     this.#end_value_triggered = true;
