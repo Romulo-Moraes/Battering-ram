@@ -1,4 +1,7 @@
-<div align="center"><h1>This is the Python version of the Battering-Ram</h1></div>
+<div align="center">
+  <h1>This is the Python version of the Battering-Ram</h1>
+  <img width="550px" src="./../assets/Python logo.png"/>
+</div>
 
 ## How to use it?
 The lib has some main functions that gives all the functionality of the bruteforce idea.
