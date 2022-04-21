@@ -1,4 +1,7 @@
-<div align="center"><h1>This is the Javascript version of the Battering-Ram</h1></div>
+<div align="center">
+  <h1>This is the Javascript version of the Battering-Ram</h1>
+  <img width="200px" src="./../assets/Javascript logo.png"/>
+</div>
 
 ## How to use it?
 The lib has some main functions that gives all the functionality of the bruteforce idea.
