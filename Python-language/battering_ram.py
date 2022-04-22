@@ -34,6 +34,12 @@ class battering_ram:
     __initial_value_triggered = False
     __end_value_triggered = False
 
+    def __insert_symbol_chars(self,BEGIN_OF_SECTION, END_OF_SECTION):
+        i = BEGIN_OF_SECTION
+
+        for x in range(END_OF_SECTION - BEGIN_OF_SECTION):
+            self.__possible_chars += chr(i)
+    
 
     def __init__(self,enable_upper_case,enable_lower_case,enable_symbols,enable_numbers) -> None:
         self.__numbers_enabled = enable_numbers
@@ -66,6 +72,12 @@ class battering_ram:
                 self.__possible_chars += chr(i)
                 j += 1
                 i += 1
+
+        if(enable_symbols):
+            self.__insert_symbol_chars(SYMBOLS_BEGIN_STEP1,SYMBOLS_END_STEP1)
+            self.__insert_symbol_chars(SYMBOLS_BEGIN_STEP2,SYMBOLS_END_STEP2)
+            self.__insert_symbol_chars(SYMBOLS_BEGIN_STEP3,SYMBOLS_END_STEP3)
+            self.__insert_symbol_chars(SYMBOLS_BEGIN_STEP4,SYMBOLS_END_STEP4)
         self.__buffer = self.__possible_chars[0]
     
     def get_data(self):
