@@ -47,6 +47,14 @@ struct battering_ram_data {
   bool end_value_triggered;
 };
 
+void insert_symbol_chars(char *possible_chars, size_t BEGIN_OF_SECTION,
+                         size_t END_OF_SECTION, int *current_buffer_index) {
+  for (int i = BEGIN_OF_SECTION; i <= END_OF_SECTION; i++) {
+    possible_chars[*current_buffer_index] = (char)i;
+    *current_buffer_index += 1;
+  }
+}
+
 void prepare_battering_ram(struct battering_ram_data *data,
                            bool enable_uppercase, bool enable_lowercase,
                            bool enable_symbols, bool enable_numbers) {
@@ -100,6 +108,17 @@ void prepare_battering_ram(struct battering_ram_data *data,
       i += 1;
       dynamic_buffer_index += 1;
     }
+  }
+
+  if (enable_symbols) {
+    insert_symbol_chars(data->possible_chars, SYMBOLS_BEGIN_STEP1,
+                        SYMBOLS_BEGIN_END1, &dynamic_buffer_index);
+    insert_symbol_chars(data->possible_chars, SYMBOLS_BEGIN_STEP2,
+                        SYMBOLS_BEGIN_END2, &dynamic_buffer_index);
+    insert_symbol_chars(data->possible_chars, SYMBOLS_BEGIN_STEP3,
+                        SYMBOLS_BEGIN_END3, &dynamic_buffer_index);
+    insert_symbol_chars(data->possible_chars, SYMBOLS_BEGIN_STEP4,
+                        SYMBOLS_BEGIN_END4, &dynamic_buffer_index);
   }
   data->buffer[0] = data->possible_chars[0];
 }

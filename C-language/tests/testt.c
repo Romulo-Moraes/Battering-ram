@@ -1,23 +1,18 @@
 #include "./../battering_ram.h"
+#include <stdbool.h>
 #include <stdio.h>
+#include <unistd.h>
 
 int main() {
   struct battering_ram_data data;
-  prepare_battering_ram(&data, false, true, false, true);
 
-  char output[256] = {0};
+  prepare_battering_ram(&data, false, false, true, false);
 
-  while (true) {
+  char buffer[128] = {0};
+
+  for (int i = 0; i < 126; i++) {
+    get_data(&data, buffer);
+    printf("%s\n", buffer);
     get_next_sequence(&data);
-    get_data(&data, output);
-
-    if (strcmp(output, "r0mu") == 0) {
-      printf("Found: %s", output);
-      exit(0);
-    } else {
-      printf("%s\n", output);
-    }
   }
-
-  return 0;
 }
