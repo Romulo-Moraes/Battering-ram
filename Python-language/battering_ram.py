@@ -37,8 +37,9 @@ class battering_ram:
     def __insert_symbol_chars(self,BEGIN_OF_SECTION, END_OF_SECTION):
         i = BEGIN_OF_SECTION
 
-        for x in range(END_OF_SECTION - BEGIN_OF_SECTION):
+        for x in range(END_OF_SECTION - BEGIN_OF_SECTION + 1):
             self.__possible_chars += chr(i)
+            i += 1;
     
 
     def __init__(self,enable_upper_case,enable_lower_case,enable_symbols,enable_numbers) -> None:
