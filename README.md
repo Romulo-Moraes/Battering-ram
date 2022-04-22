@@ -8,7 +8,7 @@
 This program is an single file header-only module for C && Python && Javascript languages whose will get the next sequence of a string with the target of Bruteforce. Created with inspiration in the binary base, on yours carrys. This module can find values with Lower case, Upper case, Numbers and Symbols.
 
 ## How to use it?
-You can choose the language between C and Python in the file tree above, inside of the folders of each language you will got the "How to use" of them in the README.md
+You can choose the language between C, Python and Javascript in the file tree above, inside of the folders of each language you will got the "How to use" of them in the README.md
 
 ## New features
 Some ideas of future support is coming, like:
