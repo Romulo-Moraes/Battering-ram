@@ -14,7 +14,6 @@ You can choose the language between C, Python and Javascript in the file tree ab
 Some ideas of future support is coming, like:
 <ol>
   <li> Windows support for C module version</li>
-  <li> Support for symbols ( not working yet )
 </ol>
 
 
