@@ -11,16 +11,16 @@ const LOWER_CHARS_BEGIN = 97
 const LOWER_CHARS_END = 122
 
 const SYMBOLS_BEGIN_STEP1 = 32
-const SYMBOLS_BEGIN_END1 = 47
+const SYMBOLS_END_STEP1 = 47
 
 const SYMBOLS_BEGIN_STEP2 = 58
-const SYMBOLS_BEGIN_END2 = 64
+const SYMBOLS_END_STEP2 = 64
 
 const SYMBOLS_BEGIN_STEP3 = 91
-const SYMBOLS_BEGIN_END3 = 96
+const SYMBOLS_END_STEP3 = 96
 
 const SYMBOLS_BEGIN_STEP4 = 123
-const SYMBOLS_BEGIN_END4 = 126
+const SYMBOLS_END_STEP4 = 126
 
 class not_allowed_chars extends Error { };
 
@@ -74,7 +74,23 @@ class battering_ram {
       }
     }
 
+    if (enable_symbols) {
+      this.#insert_symbol_chars(SYMBOLS_BEGIN_STEP1, SYMBOLS_END_STEP1);
+      this.#insert_symbol_chars(SYMBOLS_BEGIN_STEP2, SYMBOLS_END_STEP2);
+      this.#insert_symbol_chars(SYMBOLS_BEGIN_STEP3, SYMBOLS_END_STEP3);
+      this.#insert_symbol_chars(SYMBOLS_BEGIN_STEP4, SYMBOLS_END_STEP4);
+    }
+
     this.#buffer = this.#possible_chars[0];
+  }
+
+  #insert_symbol_chars(BEGIN_OF_SECTION, END_OF_SECTION) {
+    let i = BEGIN_OF_SECTION;
+
+    for (let j = 0; j <= END_OF_SECTION - BEGIN_OF_SECTION; j++) {
+      this.#possible_chars += String.fromCharCode(i);
+      i += 1;
+    }
   }
 
   get_data() {
