@@ -4,6 +4,9 @@
   <h3>Bruteforce module for C && Python && Javascript programming</h3>
 </div>
 
+## My responsability for it
+This is a toy project to me, but can make some damages with a right level, then if you use this code base for anything else that is not about learn, it's YOUR responsability
+
 ## What's that ?
 This program is an single file header-only module for C && Python && Javascript languages which will get the next sequence of a string with the target of Bruteforce. Created with inspiration in the binary base, on yours carrys. This module can find values with Lower case, Upper case, Numbers and Symbols.
 
